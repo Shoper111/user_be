@@ -21,6 +21,10 @@ class ProductService:
         return await Product.find_one({'_id': ObjectId(product_id), 'merchant_id': merchant_id})
 
     @staticmethod
+    async def get_public_by_id(product_id: str) -> Product:
+        return await Product.find_one({'_id': ObjectId(product_id)})
+
+    @staticmethod
     async def get_products(merchant_id: str, limit: int, offset: int) -> list[Product]:
         cursor = Product.find(Product.merchant_id == merchant_id).limit(limit).skip(offset)
         return await cursor.to_list()

@@ -8,6 +8,12 @@ from pydantic import BaseModel
 from pydantic import Field
 
 
+class ShippingMethod(BaseModel):
+    method_name: str
+    price: float
+    available: bool
+
+
 class ProductCreateSchema(BaseModel):
     name: str
     description: str | None
@@ -15,6 +21,7 @@ class ProductCreateSchema(BaseModel):
     images: list[str]
     quantity: int
     price: float
+    shipping: list[ShippingMethod] = []
 
 
 class Product(Document, ProductCreateSchema):

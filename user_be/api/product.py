@@ -14,6 +14,29 @@ from user_be.services.product import ProductService
 router = APIRouter(route_class=LoggingRoute)
 
 
+@router.get(
+    '/public/{product_id}',
+    summary='Get product by id',
+    response_model=Product,
+)
+async def get_product_by_id(
+        product_id: str,
+        product_service: ProductService = Depends(get_product_service),
+) -> Product:
+    return await product_service.get_public_by_id(product_id)
+
+
+@router.get(
+    '/available-ids',
+    summary='Get available products ids',
+    response_model=list[str],
+)
+async def get_available_product_ids(
+        product_service: ProductService = Depends(get_product_service),
+) -> list[str]:
+    return await product_service.get_available_ids()
+
+
 @router.post(
     '',
     summary='Create new product',
@@ -41,17 +64,6 @@ async def get_product_list(
         product_service: ProductService = Depends(get_product_service),
 ) -> list[Product]:
     return await product_service.get_products(merchant_id, limit, offset)
-
-
-@router.get(
-    '/available-ids',
-    summary='Get available products ids',
-    response_model=list[str],
-)
-async def get_available_product_ids(
-        product_service: ProductService = Depends(get_product_service),
-) -> list[str]:
-    return await product_service.get_available_ids()
 
 
 @router.get(

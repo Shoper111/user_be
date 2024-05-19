@@ -3,7 +3,8 @@ from fastapi import FastAPI
 from user_be import __version__
 from user_be.api import attachments
 from user_be.api import base
-from user_be.api import products
+from user_be.api import order
+from user_be.api import product
 from user_be.clients import aws_cognito_client
 from user_be.clients import aws_s3_client
 from user_be.conf import settings
@@ -17,7 +18,8 @@ from user_be.middlewares import init_middlewares
 
 def init_routes(app: 'FastAPI') -> None:
     app.include_router(base.router, tags=['Base'], prefix='/api')
-    app.include_router(products.router, tags=['Products'], prefix='/api/products')
+    app.include_router(order.router, tags=['Orders'], prefix='/api/orders')
+    app.include_router(product.router, tags=['Products'], prefix='/api/products')
     app.include_router(attachments.router, tags=['Attachments'], prefix='/api/attachments')
 
 
@@ -29,8 +31,9 @@ def create_app(app_settings: Settings = None):
     app = FastAPI(
         title='Crafter',
         debug=app_settings.DEBUG,
-        docs_url='/docs' if not is_production else None,
-        redoc_url='/redoc' if not is_production else None,
+        docs_url='/api/docs' if not is_production else None,
+        redoc_url='/api/redoc' if not is_production else None,
+        openapi_url='/api/openapi.json' if not is_production else None,
         version=__version__,
     )
     init_middlewares(app)
