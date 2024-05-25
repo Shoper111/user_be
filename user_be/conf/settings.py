@@ -24,16 +24,16 @@ class Settings(BaseSettings):
     LOG_LEVEL: LogLevel = LogLevel.INFO
     ALLOWED_ORIGINS: str = 'http://localhost http://localhost:3000 http://127.0.0.1:3000'
 
-    MONGODB_HOST: str = 'localhost'
+    MONGODB_HOST: str
     MONGODB_PORT: int = 27017
-    MONGODB_USER: str = 'root'
-    MONGODB_PASS: str = 'root'
+    MONGODB_USER: str
+    MONGODB_PASS: str
 
     AWS_DEFAULT_REGION: str = 'eu-central-1'
-    COGNITO_POOL_ID: str = 'eu-central-1_dLdSYcSiJ'
-    S3_BUCKET_NAME: str = 'shoper-images'
-    AWS_ACCESS_KEY_ID: str = 'AKIA44K56ADDO35SXUR2'
-    AWS_SECRET_ACCESS_KEY: str = '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'
+    COGNITO_POOL_ID: str
+    S3_BUCKET_NAME: str
+    AWS_ACCESS_KEY_ID: str
+    AWS_SECRET_ACCESS_KEY: str
 
     SENTRY_DSN: str | None = None
 

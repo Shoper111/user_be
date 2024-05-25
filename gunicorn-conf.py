@@ -1,8 +1,8 @@
 import json
 import multiprocessing
 
-from companion_be.conf.logging import LOG_CONFIG
-from companion_be.conf import settings
+from user_be.conf.logging import LOG_CONFIG
+from user_be.conf import settings
 
 workers_per_core = 2
 cores = multiprocessing.cpu_count()
@@ -12,7 +12,7 @@ web_concurrency = max(int(default_web_concurrency), 2)
 
 # Gunicorn config variables
 bind = f'0.0.0.0:{settings.PORT}'
-workers = 1  # TODO:  hack because of websocket
+workers = web_concurrency
 graceful_timeout = 30  # default
 timeout = 30  # default
 keepalive = 2  # default
